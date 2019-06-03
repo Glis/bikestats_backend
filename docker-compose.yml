@@ -1,0 +1,23 @@
+version: '3'
+services:
+  db:
+    image: postgres:9.6
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=local
+      - POSTGRES_DB=bikestats_local
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+  web:
+    build: . 
+    command: ["./script/wait-for-it.sh", "db:5432", "--", "./script/start_rails.sh"]
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    depends_on:
+      - db
