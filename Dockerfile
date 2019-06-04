@@ -8,6 +8,8 @@ FROM phusion/passenger-ruby25
 # Use baseimage-docker's init system.
 CMD ["/sbin/my_init"]
 
+# --------------- Base commands ----------
+
 # Essentials (Base packages)
 RUN apt-get update -qq && apt-get install --fix-missing --no-install-recommends -y \ 
     build-essential apt-utils apt-transport-https wget gnupg cron htop libffi-dev openssl  \
@@ -20,14 +22,11 @@ RUN wget -qO- https://deb.nodesource.com/setup_8.x  | bash - && \
     apt-get update && \
     apt-get install -y nodejs
 
-# Ruby 2.5.5
-RUN bash -lc 'rvm list'
-RUN bash -lc 'rvm --default use ruby-2.5.5'
+# Intall Ruby 2.5.5 + gems
+RUN bash -lc 'rvm --default use ruby-2.5.5' && \
+    gem install rake && gem install bundler --no-ri --no-rdoc
 
-# Rake to enable whenever runners
-RUN gem install rake && gem install bundler --no-ri --no-rdoc
-
-# Custom commands
+# --------------- Not base commands ----------
 ENV APP_HOME /app
 
 # Essentials (Base packages)
@@ -38,6 +37,7 @@ COPY Gemfile* $APP_HOME/
 RUN bundle install
 
 COPY . $APP_HOME
+# --------------- Cleaning commands ----------
 
 # Clean up APT when done.
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

@@ -5,6 +5,7 @@ services:
     ports:
       - '5432:5432'
     environment:
+      - RAILS_ENV=development
       - POSTGRES_USER=local
       - POSTGRES_DB=bikestats_local
       - POSTGRES_PASSWORD=password
