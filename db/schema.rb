@@ -10,9 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2019_06_06_060147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "stations", force: :cascade do |t|
+    t.string "identifier"
+    t.string "name"
+    t.datetime "last_updated"
+    t.integer "total_bikes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "latest_used_bikes"
+    t.integer "latest_free_bikes"
+  end
+
+  create_table "usage_logs", force: :cascade do |t|
+    t.bigint "station_id"
+    t.integer "used_bikes"
+    t.integer "free_bikes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["station_id"], name: "index_usage_logs_on_station_id"
+  end
+
+  add_foreign_key "usage_logs", "stations"
 end
