@@ -13,6 +13,8 @@ Para usarlo es necesario tener [docker-compose](https://docs.docker.com/compose/
 
 1. Clonar este repositorio
 2. Ejecutar el comando `docker-compose up`
+3. Espera varios minutos hasta que se recolecte informacion de las diversas estaciones
+4. ya puedes probar.
 
 Luego de que ya quede corriendo el servidor se puede acceder a los siguiente endpoints:
 
