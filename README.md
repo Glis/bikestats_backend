@@ -1,14 +1,23 @@
 # Bikestats (Backend app)
  
-Aplicación que guarda y actualiza cada minuto los datos del API publico de API Bik.es (http://api.citybik.es/v2/networks/bikesantiago)
+API y backend que guarda y actualiza cada minuto los datos del API publico de API Bik.es (http://api.citybik.es/v2/networks/bikesantiago)
 
 ¿Como funciona?
 ---------
 
-Al entrar a la pantalla principal, se muesta un gráfico con la utilización de la red de bicicletas de BikeSantiago.
+Este API expone un unico endpoint que retorna las estadisticas de utilizacion de toda la red, junto con la de cada estacion
 
-Se puede seleccionar en el menu lateral o en la tabla las diferentes estaciones y 
-ver su utilización y sus estadisticas por separado
+¿Como usar?
+-------
+Para usarlo es necesario tener [docker-compose](https://docs.docker.com/compose/install/) instalado.
+
+1. Clonar este repositorio
+2. Ejecutar el comando `docker-compose up`
+
+Luego de que ya quede corriendo el servidor se puede acceder a los siguiente endpoints:
+
+#### GET /v1/stations
+Retorna la informacion de toda la red de bicicletas y da cada una de las estaciones.
 
 -----------------------------
 
